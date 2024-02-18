@@ -58,7 +58,7 @@ async def get_many_students_fiter_age(min_age: int, max_age: int, limit: int = N
 
 
 @app.post("/students", status_code=status.HTTP_200_OK)
-async def create_student(name: str, age: int, sex: str, height: int):
+async def create_student(name: str, age: int, sex: str, height: float):
     sex_lower = sex.lower()
     if sex_lower not in ["male", "female"]:
         raise HTTPException(
@@ -84,7 +84,7 @@ async def get_students_by_sex(sex: str):
 
 
 @app.put("/students/{id}", status_code=status.HTTP_200_OK)
-async def update_students(id: str, name: str, age: int, sex: str, height: int):
+async def update_students(id: str, name: str, age: int, sex: str, height: float):
     sex_lower = sex.lower()
     if sex_lower not in ["male", "female"]:
         raise HTTPException(
