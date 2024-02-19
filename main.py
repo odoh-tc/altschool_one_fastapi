@@ -6,7 +6,7 @@ app = FastAPI()
 
 
 class Student:
-   def __init__(self, name, age, sex, height): 
+   def __init__(self, name: str, age: int, sex: str, height: float): 
         self.id = None
         self.name = name
         self.age = age
@@ -47,7 +47,7 @@ async def get_many_students_fiter_age(min_age: int, max_age: int, limit: int = N
 
     if min_age is not None and max_age is not None:  
         filtered_students = [student for student in students if min_age <= student.age <= max_age]
-    
+
     if limit is not None:
         if limit > len(students):
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Limit cannot exceed the total number of students")
@@ -57,7 +57,7 @@ async def get_many_students_fiter_age(min_age: int, max_age: int, limit: int = N
     return filtered_students
 
 
-@app.post("/students", status_code=status.HTTP_200_OK)
+@app.post("/students", status_code=status.HTTP_201_CREATED)
 async def create_student(name: str, age: int, sex: str, height: float):
     sex_lower = sex.lower()
     if sex_lower not in ["male", "female"]:
@@ -83,7 +83,7 @@ async def get_students_by_sex(sex: str):
     return [student.__dict__ for student in students if student.sex == sex_lower]
 
 
-@app.put("/students/{id}", status_code=status.HTTP_200_OK)
+@app.put("/students/{id}", status_code=status.HTTP_204_NO_CONTENT)
 async def update_students(id: str, name: str, age: int, sex: str, height: float):
     sex_lower = sex.lower()
     if sex_lower not in ["male", "female"]:
@@ -104,22 +104,13 @@ async def update_students(id: str, name: str, age: int, sex: str, height: float)
         )
 
 
-@app.delete("/students/{id}")
+@app.delete("/students/{id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_student(id: str):
     for student in students:
         if student.id == id:
-            students.remove(student) 
+            students.remove(student)
             return {"message": "Student successfully deleted."}
     raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Student not found",
         )
-
-
-
-
-
-
-
-
-
