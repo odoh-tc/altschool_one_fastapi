@@ -83,7 +83,7 @@ async def get_students_by_sex(sex: str):
     return [student.__dict__ for student in students if student.sex == sex_lower]
 
 
-@app.put("/students/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@app.put("/students/{id}", status_code=status.HTTP_200_OK)
 async def update_students(id: str, name: str, age: int, sex: str, height: float):
     sex_lower = sex.lower()
     if sex_lower not in ["male", "female"]:
@@ -104,7 +104,7 @@ async def update_students(id: str, name: str, age: int, sex: str, height: float)
         )
 
 
-@app.delete("/students/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@app.delete("/students/{id}", status_code=status.HTTP_200_OK)
 async def delete_student(id: str):
     for student in students:
         if student.id == id:
