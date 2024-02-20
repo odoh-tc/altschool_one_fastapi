@@ -89,7 +89,7 @@ async def update_students(id: str, name: str, age: int, sex: str, height: float)
     if sex_lower not in ["male", "female"]:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Sex must be either'male' or 'female'",
+            detail="Sex must be either a 'male' or 'female'",
         )
     for student in students:
         if student.id == id:

@@ -12,3 +12,4 @@ Created endpoints to do the following:
 - Retrieve a Student resource (one Student and many Students)
 - Update a Student resource
 - Delete a Student resource
+all.
